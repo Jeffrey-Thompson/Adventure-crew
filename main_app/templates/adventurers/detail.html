@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Adventurer Details</h1>
+
+<div class="card">
+
+    <div class="card-content">
+        <span class="card-title">{{ adventurer.name }}</span>
+        <p>Fighting style: {{ adventurer.style }}</p>
+        <p>Preferred weapon: {{ adventurer.weapon }}</p>
+        <p>Health: {{ adventurer.health }}</p>
+        {% if adventurer.wealth > 1000 %}
+            <p>Wealth: Rich</p>
+        {% else %}
+            <p>Wealth: Poor</p>
+        {% endif %}
+    </div>
+    
+</div>
+
+{% endblock %}
