@@ -3,9 +3,9 @@ from django.db import models
 # Create your models here.
 class Enemy(models.Model):
     name = models.CharField(max_length=100)
-    species = model.CharField(max_length=100)
-    treasure = model.IntegerField()
-    health = model.IntegerField()
+    species = models.CharField(max_length=100)
+    treasure = models.IntegerField()
+    health = models.IntegerField()
 
     def __str__(self):
         return self.name
@@ -17,6 +17,8 @@ class Adventurer(models.Model):
     weapon = models.CharField('perferred weapon', max_length=100)
     health = models.IntegerField()
     wealth = models.IntegerField()
+
+    enemys = models.ManyToManyField(Enemy)
 
     def __str__(self):
         return self.name
