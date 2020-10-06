@@ -1,26 +1,36 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Adventurer List</h1>
+<div class="row">
 
-{% for adventurer in adventurers %}
-<div class="card">
+    <h1>Adventurer List</h1>
+    <div class="col s9">
+        {% for adventurer in adventurers %}
+        <div class="card">
 
-    <a href="{% url 'detail' adventurer.name %}">
-        <div class="card-content">
-            <span class="card-title">{{ adventurer.name }}</span>
-            <p>Fighting style: {{ adventurer.style }}</p>
-            <p>Preferred weapon: {{ adventurer.weapon }}</p>
-            <p>Health: {{ adventurer.health }}</p>
-            {% if adventurer.wealth > 1000 %}
-                <p>Wealth: Rich</p>
-            {% else %}
-                <p>Wealth: Poor</p>
-            {% endif %}
+            <a href="{% url 'detail' adventurer.name %}">
+                <div class="card-content">
+                    <span class="card-title">{{ adventurer.name }}</span>
+                    <p>Fighting style: {{ adventurer.style }}</p>
+                    <p>Preferred weapon: {{ adventurer.weapon }}</p>
+                    <p>Health: {{ adventurer.health }}</p>
+                    {% if adventurer.wealth > 1000 %}
+                        <p>Wealth: Rich</p>
+                    {% else %}
+                        <p>Wealth: Poor</p>
+                    {% endif %}
+                </div>
+            </a>
+
         </div>
-    </a>
-
+    {% endfor %}
+    </div>
+    <div class="col s3">
+        <form action="{% url 'index' %}" method="POST">
+            {% csrf_token %}
+            {{ adventurer_form.as_p }}
+            <input type="submit" class="btn" value="Add Adventurer"/>
+        </form>
+    </div>
 </div>
-{% endfor %}
-
 {% endblock %}
