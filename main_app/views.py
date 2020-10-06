@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .models import Adventurer
+from .models import Adventurer, Enemy
 from .forms import JourneyForm, AdventurerForm
 
 # Create your views here.
@@ -24,8 +24,13 @@ def adventurers_index(request):
 
 def adventurers_detail(request, name):
     adventurer = Adventurer.objects.get(name=name)
+    future_enemies = Enemy.objects.exclude(id__in = adventurer.enemys.all().values_list('id'))
     journey_form = JourneyForm()
-    return render(request, 'adventurers/detail.html', { 'adventurer': adventurer, 'journey_form': journey_form})
+    return render(request, 'adventurers/detail.html', { 
+        'adventurer': adventurer, 
+        'journey_form': journey_form,
+        'enemys': future_enemies
+    })
 
 def add_journey(request, adventurer_id, name):
     form = JourneyForm(request.POST)
