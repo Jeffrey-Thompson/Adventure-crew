@@ -34,3 +34,19 @@ def add_journey(request, adventurer_id, name):
         new_journey.adventurer_id = adventurer_id
         new_journey.save()
     return redirect('detail', name=name)
+
+def adventurers_delete(request, adventurer_id):
+    Adventurer.objects.get(id=adventurer_id).delete()
+    return redirect('index')
+
+def adventurers_edit(request, adventurer_id, name):
+    adventurer = Adventurer.objects.get(id=adventurer_id)
+    if request.method == 'POST':
+        adventurer_form = AdventurerForm(request.POST, instance=adventurer)
+        if adventurer_form.is_valid():
+            adventurer_form.save()
+            return redirect('detail', name=name)
+    else:
+        adventurer_form = AdventurerForm(instance=adventurer)
+    context = {'adventurer': adventurer, 'adventurer_form': adventurer_form}
+    return render(request, 'adventurers/edit.html', context)

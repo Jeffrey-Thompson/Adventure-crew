@@ -19,6 +19,10 @@
                     <p>Wealth: Poor</p>
                 {% endif %}
             </div>
+            <div class="card-action">
+                <a href="{% url 'adventurers_delete' adventurer.id %}" class="btn red">Delete</a>
+                <a href="{% url 'adventurers_edit' adventurer.id adventurer.name %}" class="btn blue">Edit</a>
+            </div>
             
         </div>
     </div>
