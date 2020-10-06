@@ -8,5 +8,6 @@ urlpatterns = [
     path('adventurers/<name>/', views.adventurers_detail, name='detail'),
     path('adventurers/<int:adventurer_id>/<name>/add_journey', views.add_journey, name='add_journey'),
     path('adventurers/<int:adventurer_id>/delete', views.adventurers_delete, name='adventurers_delete'),
-    path('adventurers/<int:adventurer_id>/<name>/edit', views.adventurers_edit, name="adventurers_edit")
+    path('adventurers/<int:adventurer_id>/<name>/edit', views.adventurers_edit, name="adventurers_edit"),
+    path('adventurers/<int:adventurer_id>/<name>/assoc_toy/<int:enemy_id>/', views.assoc_enemy, name='assoc_enemy')
 ]

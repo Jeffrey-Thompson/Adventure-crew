@@ -74,7 +74,7 @@
                         <span class="card-title">The {{ enemy.species }} known as {{ enemy.name }}</span>
                     </div>
                     <div class="card-action">
-                        <form action="" method="POST">
+                        <form action="{% url 'assoc_enemy' adventurer.id adventurer.name enemy.id %}" method="POST">
                             {% csrf_token %}
                             <button type="submit" class="btn">Pick a Fight</button>
                         </form>

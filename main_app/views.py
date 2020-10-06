@@ -55,3 +55,7 @@ def adventurers_edit(request, adventurer_id, name):
         adventurer_form = AdventurerForm(instance=adventurer)
     context = {'adventurer': adventurer, 'adventurer_form': adventurer_form}
     return render(request, 'adventurers/edit.html', context)
+
+def assoc_enemy(request, adventurer_id, name, enemy_id):
+    Adventurer.objects.get(id=adventurer_id).enemys.add(enemy_id)
+    return redirect('detail', name=name)
