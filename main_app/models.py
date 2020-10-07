@@ -10,6 +10,16 @@ class Enemy(models.Model):
     def __str__(self):
         return self.name
 
+class Gear(models.Model):
+    name = models.CharField(max_length=100)
+    attack = models.IntegerField('attack power')
+    armor = models.IntegerField('armor bonus')
+    heal = models.IntegerField('heal bonus')
+    cost = models.IntegerField()
+
+    def __str__(self):
+        return self.name
+
 
 class Adventurer(models.Model):
     name = models.CharField(max_length=100, unique=True)
@@ -19,6 +29,7 @@ class Adventurer(models.Model):
     wealth = models.IntegerField()
 
     enemys = models.ManyToManyField(Enemy)
+    gears = models.ManyToManyField(Gear)
 
     def __str__(self):
         return self.name

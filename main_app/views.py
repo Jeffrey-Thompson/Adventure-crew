@@ -59,3 +59,7 @@ def adventurers_edit(request, adventurer_id, name):
 def assoc_enemy(request, adventurer_id, name, enemy_id):
     Adventurer.objects.get(id=adventurer_id).enemys.add(enemy_id)
     return redirect('detail', name=name)
+
+def deassoc_enemy(request, adventurer_id, name, enemy_id):
+    Adventurer.objects.get(id=adventurer_id).enemys.remove(enemy_id)
+    return redirect('detail', name=name)
