@@ -112,5 +112,33 @@
             <h5>An adventurer needs gear. You can't go into battle naked. You aren't Celtic.</h5>
         {% endif %}
     </div>
+    <div class="col s6">
+        <h3>Gear Shop</h3>
+        {% if gears.count %}
+            {% for gear in gears.all %}
+                <div class="card">
+                    <div class="card-content">
+                        <span class="card-title">{{ gear.name }}</span>
+                        <p>Attack power: {{ gear.attack }}</p>
+                        <p>Armor bonus: {{ gear.armor }}</p>
+                        <p>Heal bonus: {{ gear.heal }}</p>
+                        <p>Cost: {{ gear.cost }}</p>
+                    </div>
+                    <div class="card-action">
+                    {% if gear.cost > adventurer.wealth %}
+                        <h5>You can't afford it, honey.</h5>
+                    {% else %}
+                        <form action="{% url 'assoc_gear' adventurer.id adventurer.name gear.id %}" method="POST">
+                            {% csrf_token %}
+                            <button class="btn" type="submit">Buy It!</button>
+                        </form>
+                    {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <h5>{{adventurer.name}} owns everything.</h5>
+        {% endif %}
+    </div>
 </div>
 {% endblock %}

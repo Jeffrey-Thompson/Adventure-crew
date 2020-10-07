@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .models import Adventurer, Enemy
+from .models import Adventurer, Enemy, Gear
 from .forms import JourneyForm, AdventurerForm
 
 # Create your views here.
@@ -25,11 +25,13 @@ def adventurers_index(request):
 def adventurers_detail(request, name):
     adventurer = Adventurer.objects.get(name=name)
     future_enemies = Enemy.objects.exclude(id__in = adventurer.enemys.all().values_list('id'))
+    future_gear = Gear.objects.exclude(id__in = adventurer.gears.all().values_list('id'))
     journey_form = JourneyForm()
     return render(request, 'adventurers/detail.html', { 
         'adventurer': adventurer, 
         'journey_form': journey_form,
-        'enemys': future_enemies
+        'enemys': future_enemies,
+        'gears': future_gear
     })
 
 def add_journey(request, adventurer_id, name):
@@ -62,4 +64,11 @@ def assoc_enemy(request, adventurer_id, name, enemy_id):
 
 def deassoc_enemy(request, adventurer_id, name, enemy_id):
     Adventurer.objects.get(id=adventurer_id).enemys.remove(enemy_id)
+    return redirect('detail', name=name)
+
+def assoc_gear(request, adventurer_id, name, gear_id):
+    adventurer = Adventurer.objects.get(id=adventurer_id)
+    gear = Gear.objects.get(id=gear_id)
+    adventurer.change_wealth(-gear.cost)
+    adventurer.gears.add(gear_id)
     return redirect('detail', name=name)

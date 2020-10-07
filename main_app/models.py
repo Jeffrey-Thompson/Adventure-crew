@@ -33,6 +33,10 @@ class Adventurer(models.Model):
 
     def __str__(self):
         return self.name
+    
+    def change_wealth(self, amount):
+        self.wealth = self.wealth + amount
+        self.save()
 
 class Journey(models.Model):
     goal = models.CharField(max_length=100)

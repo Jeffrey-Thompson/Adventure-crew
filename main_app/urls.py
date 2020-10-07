@@ -11,4 +11,5 @@ urlpatterns = [
     path('adventurers/<int:adventurer_id>/<name>/edit', views.adventurers_edit, name="adventurers_edit"),
     path('adventurers/<int:adventurer_id>/<name>/assoc_toy/<int:enemy_id>/', views.assoc_enemy, name='assoc_enemy'),
     path('adventurers/<int:adventurer_id>/<name>/deassoc_toy/<int:enemy_id>/', views.deassoc_enemy, name='deassoc_enemy'),
+    path('adventurers/<int:adventurer_id>/<name>/assoc_gear/<int:gear_id>/', views.assoc_gear, name='assoc_gear')
 ]
